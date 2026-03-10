@@ -1,0 +1,10 @@
+[submodule "Isaac-GR00T"]
+	path = Isaac-GR00T
+	url = https://github.com/NVIDIA/Isaac-GR00T
+	ignore = untracked
+[submodule "_third_party/unitree_sim_isaaclab"]
+	path = _third_party/unitree_sim_isaaclab
+	url = https://github.com/unitreerobotics/unitree_sim_isaaclab
+[submodule "pytorch3d"]
+	path = pytorch3d
+	url = https://github.com/facebookresearch/pytorch3d.git

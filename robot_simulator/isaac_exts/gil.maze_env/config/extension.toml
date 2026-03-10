@@ -1,0 +1,18 @@
+[package]
+title = "GIL Maze Environment"
+description = "Spawns a simple maze/labyrinth (static collision walls) into the current stage."
+version = "0.1.0"
+category = "simulation"
+authors = ["GIL"]
+
+[dependencies]
+
+[[python.module]]
+name = "gil.maze_env"
+
+
+
+
+
+
+

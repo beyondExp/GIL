@@ -1,0 +1,19 @@
+[package]
+title = "GIL H1 Maze Walker"
+description = "Runs the built-in H1 locomotion policy and commands it toward the maze goal."
+version = "0.1.0"
+category = "simulation"
+authors = ["GIL"]
+
+[dependencies]
+"gil.maze_task" = {}
+
+[[python.module]]
+name = "gil.h1_maze_walker"
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+torch
+git+https://github.com/huggingface/transformers.git
+pillow
+opencv-python
+scikit-learn
+google-generativeai
+mistralai
+numpy<2.0
+mcp
+qwen-vl-utils
+python-dotenv
+uvicorn
+accelerate
+bitsandbytes
+nvidia-gr00t-sdk

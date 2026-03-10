@@ -1,0 +1,18 @@
+[package]
+title = "GIL Unitree H1 Scene"
+description = "Auto-load a simple Unitree H1 scene (environment + robot) for Isaac Sim streaming."
+version = "0.1.0"
+category = "simulation"
+authors = ["GIL"]
+
+[dependencies]
+
+[[python.module]]
+name = "gil.unitree_h1_scene"
+
+
+
+
+
+
+

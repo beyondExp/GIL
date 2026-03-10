@@ -1,0 +1,76 @@
+{
+  "robot": "unitree_h1_2",
+  "version": 1,
+  "cameras": {
+    "front_cam": {
+      "prim_path": "/World/Humanoid/camera_link/front_cam",
+      "update_period_s": 0.02,
+      "resolution_px": [640, 480],
+      "pinhole": {
+        "focal_length": 7.6,
+        "focus_distance": 400.0,
+        "horizontal_aperture": 20.0,
+        "clipping_range": [0.1, 100000.0]
+      },
+      "mount": {
+        "pos_m": [0.0, 0.0, 0.0],
+        "rot_quat_wxyz": [0.5, -0.5, 0.5, -0.5],
+        "convention": "ros"
+      }
+    },
+    "world_cam": {
+      "prim_path": "/World/Humanoid/camera_link/PerspectiveCamera_robot",
+      "update_period_s": 0.02,
+      "resolution_px": [640, 480],
+      "pinhole": {
+        "focal_length": 12.0,
+        "focus_distance": 400.0,
+        "horizontal_aperture": 27.0,
+        "clipping_range": [0.1, 100000.0]
+      },
+      "mount": {
+        "pos_m": [-0.9, 0.0, 0.0],
+        "rot_quat_wxyz": [-0.51292, 0.51292, -0.48674, 0.48674],
+        "convention": "ros"
+      }
+    },
+    "left_wrist_cam": {
+      "prim_path": "/World/Humanoid/left_hand_camera_base_link/left_wrist_camera",
+      "update_period_s": 0.02,
+      "resolution_px": [640, 480],
+      "pinhole": {
+        "focal_length": 12.0,
+        "focus_distance": 400.0,
+        "horizontal_aperture": 20.0,
+        "clipping_range": [0.1, 100000.0]
+      },
+      "mount": {
+        "pos_m": [-0.04012, -0.07441, 0.15711],
+        "rot_quat_wxyz": [0.00539, 0.86024, 0.0424, 0.50809],
+        "convention": "ros"
+      }
+    },
+    "right_wrist_cam": {
+      "prim_path": "/World/Humanoid/right_hand_camera_base_link/right_wrist_camera",
+      "update_period_s": 0.02,
+      "resolution_px": [640, 480],
+      "pinhole": {
+        "focal_length": 12.0,
+        "focus_distance": 400.0,
+        "horizontal_aperture": 20.0,
+        "clipping_range": [0.1, 100000.0]
+      },
+      "mount": {
+        "pos_m": [-0.04012, 0.07441, 0.15711],
+        "rot_quat_wxyz": [0.00539, 0.86024, 0.0424, 0.50809],
+        "convention": "ros"
+      }
+    },
+    "wide_debug": {
+      "prim_path": "/OmniverseKit_Persp",
+      "resolution_px": [640, 360]
+    }
+  }
+}
+
+

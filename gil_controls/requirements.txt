@@ -1,0 +1,6 @@
+websockets
+numpy
+mcp
+python-dotenv
+uvicorn
+pillow

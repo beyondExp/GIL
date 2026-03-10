@@ -1,0 +1,19 @@
+[package]
+title = "GIL Maze Task"
+description = "Simple maze navigation task loop (spawn goal, compute progress, optional H1 locomotion command)."
+version = "0.1.0"
+category = "simulation"
+authors = ["GIL"]
+
+[dependencies]
+"gil.maze_env" = {}
+
+[[python.module]]
+name = "gil.maze_task"
+
+
+
+
+
+
+
