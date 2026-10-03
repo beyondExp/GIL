@@ -1,1 +1,0 @@
-bash: line 1: /home/xevox/verify_groot_wsl2.sh: No such file or directory

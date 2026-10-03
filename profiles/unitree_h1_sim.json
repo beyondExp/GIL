@@ -1,0 +1,34 @@
+{
+  "profile_id": "unitree_h1_sim",
+  "display_name": "Unitree H1 (Isaac / WebSocket sim)",
+  "kind": "humanoid",
+  "backend": "sim_ws",
+  "action_space": {
+    "type": "cmd_vel",
+    "dims": ["vx", "vy", "wz"],
+    "max_abs": { "vx": 0.6, "vy": 0.4, "wz": 1.0 }
+  },
+  "cameras": [
+    {
+      "name": "front",
+      "frame": "camera_link",
+      "calibrated": true,
+      "fx": 400.0,
+      "fy": 400.0,
+      "cx": 320.0,
+      "cy": 240.0
+    }
+  ],
+  "safety": {
+    "stale_state_after_s": 1.5,
+    "heartbeat_timeout_s": 2.0,
+    "max_vx": 0.6,
+    "max_vy": 0.4,
+    "max_wz": 1.0,
+    "limp_vx": 0.05,
+    "require_motion_enable": true,
+    "require_estop_topic": false,
+    "require_camera_info": false
+  },
+  "frames": { "world": "world", "base": "base_link" }
+}

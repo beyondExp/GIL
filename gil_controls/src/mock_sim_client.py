@@ -16,6 +16,7 @@ class MockSim:
     def __init__(self):
         self.ee = [0.9, 0.3, 0.0]
         self.base = {"x": 0.0, "y": 0.0, "z": 0.0, "yaw": 0.0}
+        self.mode = "external"
         self.joints = {
             "base": 90,
             "shoulder": 48,
@@ -28,9 +29,17 @@ class MockSim:
     def _emit_state(self):
         return {
             "type": "scene_state",
+            "robot_kind": "humanoid",
             "joint_positions": self.joints,
             "end_effector": {"x": self.ee[0], "y": self.ee[1], "z": self.ee[2]},
             "base": self.base,
+            "mode": self.mode,
+            "sensors": {
+                "mock": {
+                    "connected": True,
+                    "time_s": time.time(),
+                }
+            },
         }
 
     async def run(self, url="ws://127.0.0.1:8766"):
@@ -85,14 +94,24 @@ class MockSim:
                     self.ee = [0.9, 0.3, 0.0]
                     self.base = {"x": 0.0, "y": 0.0, "z": 0.0, "yaw": 0.0}
                     await ws.send(json.dumps(self._emit_state()))
+                elif t == "reset_episode":
+                    self.ee = [0.9, 0.3, 0.0]
+                    self.base = {"x": 0.0, "y": 0.0, "z": 0.0, "yaw": 0.0}
+                    await ws.send(json.dumps(self._emit_state()))
+                elif t == "walker_mode":
+                    self.mode = str(cmd.get("mode", self.mode))
+                    await ws.send(json.dumps(self._emit_state()))
+                elif t == "set_goal":
+                    await ws.send(json.dumps(self._emit_state()))
                 elif t == "cmd_vel":
-                    dt = float(cmd.get("dt", 0.2))
+                    dt = float(cmd.get("dt", cmd.get("duration_s", 0.05)))
                     vx = float(cmd.get("vx", 0.0))
                     vy = float(cmd.get("vy", 0.0))
                     wz = float(cmd.get("wz", 0.0))
-                    self.base["yaw"] += wz * dt
-                    self.base["x"] += vx * dt
-                    self.base["z"] += vy * dt
+                    yaw = float(self.base.get("yaw", 0.0))
+                    self.base["x"] = float(self.base.get("x", 0.0)) + (vx * math.cos(yaw) - vy * math.sin(yaw)) * dt
+                    self.base["y"] = float(self.base.get("y", 0.0)) + (vx * math.sin(yaw) + vy * math.cos(yaw)) * dt
+                    self.base["yaw"] = yaw + wz * dt
                     await ws.send(json.dumps(self._emit_state()))
                 else:
                     # ignore gripper/unknown

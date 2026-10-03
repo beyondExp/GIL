@@ -21,7 +21,18 @@ async def main() -> None:
             if "set_humanoid_mode" in tool_names:
                 res = await asyncio.wait_for(session.call_tool("set_humanoid_mode", {"mode": "external"}), timeout=10.0)
                 print("set_humanoid_mode:", res.content[0].text if res.content else res, flush=True)
+            if "run_humanoid_preflight" in tool_names:
+                res = await asyncio.wait_for(session.call_tool("run_humanoid_preflight", {}), timeout=10.0)
+                print("run_humanoid_preflight:", res.content[0].text if res.content else res, flush=True)
+            if "enable_humanoid_motion" in tool_names:
+                res = await asyncio.wait_for(
+                    session.call_tool("enable_humanoid_motion", {"reason": "mcp smoke test"}),
+                    timeout=10.0,
+                )
+                print("enable_humanoid_motion:", res.content[0].text if res.content else res, flush=True)
             if "drive_humanoid" in tool_names:
+                if "send_humanoid_heartbeat" in tool_names:
+                    await asyncio.wait_for(session.call_tool("send_humanoid_heartbeat", {"source": "mcp_smoke_test"}), timeout=10.0)
                 res = await asyncio.wait_for(
                     session.call_tool(
                         "drive_humanoid",
@@ -30,6 +41,12 @@ async def main() -> None:
                     timeout=10.0,
                 )
                 print("drive_humanoid:", res.content[0].text if res.content else res, flush=True)
+            if "disable_humanoid_motion" in tool_names:
+                res = await asyncio.wait_for(
+                    session.call_tool("disable_humanoid_motion", {"reason": "mcp smoke test"}),
+                    timeout=10.0,
+                )
+                print("disable_humanoid_motion:", res.content[0].text if res.content else res, flush=True)
 
 
 if __name__ == "__main__":

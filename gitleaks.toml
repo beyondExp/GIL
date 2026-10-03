@@ -1,0 +1,10 @@
+title = "GIL"
+
+[allowlist]
+description = "Third-party clones are not part of the GIL product scan surface"
+paths = [
+  '''pytorch3d''',
+  '''Isaac-GR00T''',
+  '''gil_models/groot_extracted''',
+  '''_third_party''',
+]

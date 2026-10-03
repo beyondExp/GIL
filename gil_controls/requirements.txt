@@ -1,6 +1,7 @@
 websockets
 numpy
-mcp
+mcp>=1.9.4,<2
 python-dotenv
 uvicorn
 pillow
+fastapi

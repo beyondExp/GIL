@@ -1,0 +1,15 @@
+*
+!docker/
+!docker/**
+!gil_controls/
+!gil_controls/**
+!src/
+!src/**
+!scripts/
+!scripts/isaaclab_play_h1.py
+!scripts/gil_heartbeat_loop.py
+!gil_controls/requirements.txt
+**/.cache/
+**/__pycache__/
+**/*.pyc
+**/.git/

@@ -1,0 +1,19 @@
+{
+  "observed_at_s": 1787402603.390359,
+  "cmd_vel": {
+    "vx_scale": 1.0,
+    "vy_scale": 1.0,
+    "wz_scale": 0.5068710510575654
+  },
+  "envelope": {
+    "max_vx": 0.2,
+    "max_vy": 0.0,
+    "max_wz": 0.35,
+    "max_drive_duration_s": 8.0,
+    "min_upright_base_z_m": 0.7
+  },
+  "notes": [
+    "vx_response_ratio_out_of_range=5.042",
+    "wz_response_ratio=1.973"
+  ]
+}

@@ -1,24 +1,24 @@
 {
   "robot": "unitree_h1",
-  "version": 1,
+  "version": 4,
+  "notes": "Stock Isaac H1 USD has no cameras. This matches the Isaac Lab H1 maze task in this repo: FPVCamera + ChaseCamera with world-frame offsets from the robot root (src/gil_isaaclab_tasks/.../maze_env_cfg.py).",
   "cameras": {
     "fpv": {
-      "pos_m": [0.20, 0.0, 1.55],
-      "rot_euler_deg_xyz": [0.0, -90.0, 0.0],
-      "resolution_px": [640, 360],
+      "prim_path": "/World/Humanoid/FPVCamera",
+      "pos_m": [0.25, 0.0, 0.20],
+      "rot_euler_deg_xyz": [0.0, -90.0, -90.0],
+      "resolution_px": [320, 180],
+      "focal_length_mm": 24.0,
+      "horizontal_aperture_mm": 20.955,
+      "convention": "world"
+    },
+    "chase": {
+      "prim_path": "/World/Humanoid/ChaseCamera",
+      "pos_m": [-2.5, 0.0, 1.6],
+      "resolution_px": [320, 180],
       "focal_length_mm": 18.0,
       "horizontal_aperture_mm": 20.955,
-      "vertical_aperture_mm": 11.778
-    },
-    "wide_debug": {
-      "resolution_px": [640, 360]
+      "convention": "world"
     }
   }
 }
-
-
-
-
-
-
-

@@ -1,0 +1,45 @@
+{
+  "profile_id": "unitree_h1_hardware",
+  "display_name": "Unitree H1 (hardware)",
+  "kind": "humanoid",
+  "backend": "h1_hardware",
+  "action_space": {
+    "type": "cmd_vel",
+    "dims": ["vx", "vy", "wz"],
+    "max_abs": { "vx": 0.4, "vy": 0.25, "wz": 0.6 }
+  },
+  "cameras": [
+    {
+      "name": "left",
+      "frame": "camera_left",
+      "topic": "/camera/left/image_raw",
+      "info_topic": "/camera/left/camera_info",
+      "calibrated": false
+    }
+  ],
+  "topics": {
+    "cmd_vel": "/cmd_vel",
+    "odom": "/odom",
+    "joint_states": "/joint_states",
+    "imu": "/imu/data",
+    "battery": "/battery_state",
+    "fault": "/robot_faults",
+    "estop": "/robot_estop",
+    "mode_state": "/humanoid/mode_state",
+    "image_left": "/camera/left/image_raw",
+    "image_right": "/camera/right/image_raw",
+    "camera_info_left": "/camera/left/camera_info"
+  },
+  "safety": {
+    "stale_state_after_s": 1.5,
+    "heartbeat_timeout_s": 2.0,
+    "max_vx": 0.4,
+    "max_vy": 0.25,
+    "max_wz": 0.6,
+    "limp_vx": 0.05,
+    "require_motion_enable": true,
+    "require_estop_topic": true,
+    "require_camera_info": true
+  },
+  "frames": { "world": "world", "base": "base_link" }
+}

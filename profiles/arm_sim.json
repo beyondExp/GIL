@@ -1,0 +1,30 @@
+{
+  "profile_id": "arm_sim",
+  "display_name": "GIL tabletop arm (Three.js / mock)",
+  "kind": "arm",
+  "backend": "sim_ws",
+  "action_space": {
+    "type": "ee_delta",
+    "dims": ["dx", "dy", "dz", "gripper"],
+    "max_abs": { "dx": 0.15, "dy": 0.15, "dz": 0.15 }
+  },
+  "cameras": [
+    {
+      "name": "wrist",
+      "frame": "wrist_cam",
+      "calibrated": true,
+      "fx": 320.0,
+      "fy": 320.0,
+      "cx": 160.0,
+      "cy": 120.0
+    }
+  ],
+  "safety": {
+    "stale_state_after_s": 1.5,
+    "heartbeat_timeout_s": 2.0,
+    "require_motion_enable": false,
+    "require_estop_topic": false,
+    "require_camera_info": false
+  },
+  "frames": { "world": "world", "base": "arm_base" }
+}

@@ -1,0 +1,28 @@
+{
+  "profile_name": "unitree_h1_default",
+  "backend_mode": "h1_hardware",
+  "topics": {
+    "cmd_vel": "/cmd_vel",
+    "odom": "/odom",
+    "joint_states": "/joint_states",
+    "imu": "/imu/data",
+    "battery": "/battery_state",
+    "fault": "/robot_faults",
+    "estop": "/robot_estop",
+    "mode_state": "/humanoid/mode_state",
+    "image_left": "/camera/left/image_raw",
+    "image_right": "/camera/right/image_raw",
+    "camera_info_left": "/camera/left/camera_info"
+  },
+  "safety": {
+    "stale_state_after_s": 1.5,
+    "heartbeat_timeout_s": 2.0,
+    "max_vx": 0.4,
+    "max_vy": 0.25,
+    "max_wz": 0.6
+  },
+  "calibration": {
+    "camera_config_seed": "robot_simulator/config/robots/unitree_h1_sensors.json",
+    "notes": "Replace with robot-specific calibrated values before enabling authoritative autonomy."
+  }
+}

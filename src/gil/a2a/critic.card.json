@@ -1,0 +1,12 @@
+{
+  "protocol": "a2a",
+  "protocolVersion": "0.2",
+  "name": "GIL Critic",
+  "description": "Scores imagined rollouts for physical plausibility. Never commands actuators.",
+  "url": "http://127.0.0.1:6772/a2a",
+  "skills": ["score_rollout", "filter_dreams"],
+  "capabilities": { "streaming": false },
+  "authentication": { "schemes": ["token"] },
+  "defaultInputModes": ["application/json"],
+  "defaultOutputModes": ["application/json"]
+}

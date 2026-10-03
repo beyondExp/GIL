@@ -1,6 +1,8 @@
 # Python
 __pycache__/
 *.py[cod]
+*.egg-info/
+src/*.egg-info/
 *$py.class
 *.so
 .Python
@@ -25,6 +27,7 @@ MANIFEST
 
 # Virtual Environments
 venv/
+.venv/
 env/
 ENV/
 env.bak/
@@ -38,6 +41,11 @@ venv.bak/
 *~
 .DS_Store
 
+# Cursor (keep an example MCP config only)
+.cursor/
+!.cursor/mcp.example.json
+.cursor/mcp.json
+
 # Node / Frontend
 node_modules/
 **/node_modules/
@@ -48,6 +56,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Logs / local run artifacts
+kit_last_run.log
 
 # Large binary bundles / installers
 *.whl
@@ -68,10 +79,35 @@ logs/
 models/
 cache/
 .cache/
+.cache/isaac-docker/
+
+# Isaac / Omniverse local caches (never commit)
+**/cookedmeshcache/
+**/DerivedDataCache/
+.nvidia-omniverse/
 
 # Large local datasets/checkpoints (do not commit)
 gil_controls/datasets/
 gil_controls/checkpoints/
+.pretrained_checkpoints/
+
+# Local artifacts captured during demos (never commit)
+assets/screenshots/
+assets/recordings/
+assets/public_rgbd/
+assets/worldsculpt/
+assets/**/_raw/
+assets/**/usd_cache/
+assets/**/recon/
+assets/**/previews/
+assets/**/logs/
+assets/**
+!assets/README.md
+
+# Local third-party clones used during experiments (never commit their working copies)
+_third_party/WorldSculpt/
+third_party/WorldSculpt/
+third_party/kit-usd-agents/
 
 # Output and Temporary Files
 output/

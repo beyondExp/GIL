@@ -49,6 +49,12 @@ class VisionEngine:
         self.gemini_api_key = os.getenv('GOOGLE_API_KEY', '')
         # Using the specialized robotics model requested by user
         self.gemini_model = "gemini-robotics-er-1.5-preview"
+        self.allow_estimated_coordinates = str(os.getenv("GIL_ALLOW_ESTIMATED_OBJECT_COORDINATES", "")).strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
+        )
         
         # Initialize Gemini if available
         if GEMINI_AVAILABLE and self.gemini_api_key:
@@ -166,8 +172,11 @@ source ~/groot_env/bin/activate && python3 /tmp/test_groot.py 2>&1"""
         
         # Fallback to Cosmos
         if self.cosmos_model:
-            # Cosmos implementation (simplified for now)
-            return {"analysis": "Cosmos analysis placeholder", "model": "cosmos"}
+            return {
+                "error": "Cosmos scene analysis is not calibrated for hardware-authoritative use in this checkout.",
+                "model": "cosmos",
+                "safe_for_motion_authority": False,
+            }
             
         return {"error": "No vision model loaded"}
 
@@ -214,6 +223,11 @@ source ~/groot_env/bin/activate && python3 /tmp/test_groot.py 2>&1"""
         wsl_img_path = temp_img_path.replace('\\', '/').replace('C:', '/mnt/c').replace('D:', '/mnt/d')
         
         try:
+            if not self.allow_estimated_coordinates:
+                raise Exception(
+                    "Estimated GR00T coordinates are disabled. Set GIL_ALLOW_ESTIMATED_OBJECT_COORDINATES=1 "
+                    "only for observation/demo use after reviewing the risk."
+                )
             # Create a Python script for GR00T to analyze the image and estimate coordinates
             wsl_script = f'''
 import sys
@@ -372,7 +386,7 @@ except Exception as e:
                 
         except Exception as e:
             print(f"[ERROR] Gemini BBox failed: {e}")
-            return {"error": "Failed to detect object in 2D image"}
+            return {"error": "Failed to detect object in 2D image", "safe_for_motion_authority": False}
 
         # 3. Compute or Estimate Depth
         depth_map = None
@@ -474,7 +488,9 @@ except Exception as e:
             "x": float(world_x),
             "y": float(world_y),
             "z": float(world_z),
-            "confidence": "high"
+            "confidence": "advisory",
+            "safe_for_motion_authority": False,
+            "warning": "This coordinate estimate uses simplified stereo geometry and must not drive hardware-autonomous motion.",
         }
 
     async def compute_point_cloud_objects(self, image_left_b64, image_right_b64, camera_info):
@@ -502,7 +518,12 @@ except Exception as e:
         # 3. Cluster Points
         objects = self._cluster_point_cloud(points)
         
-        return {"objects": objects, "point_count": len(points)}
+        return {
+            "objects": objects,
+            "point_count": len(points),
+            "safe_for_motion_authority": False,
+            "warning": "Point cloud projection still uses simplified geometry and requires calibration before hardware-authoritative use.",
+        }
 
     def _compute_stereo_depth(self, img_left, img_right):
         """Compute stereo depth map with improved parameters"""

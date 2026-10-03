@@ -1,0 +1,45 @@
+name: GIL CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  phase-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install GIL
+        run: pip install -e ".[dev]"
+      - name: Run phase gates
+        run: python -m gil.gates
+      - name: Secret scan of product code
+        run: python -m pytest tests/test_phase0_repo.py -q
+
+  new-modules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install GIL
+        run: pip install -e ".[dev]"
+      - name: Robot interface + provenance
+        run: python -m pytest tests/test_robot_interface.py -v
+      - name: World model factory
+        run: python -m pytest tests/test_world_factory.py -v
+      - name: Trainer module
+        run: python -m pytest tests/test_trainer.py -v
+      - name: Competence persistence
+        run: python -m pytest tests/test_competence_persistence.py -v
+      - name: Perception client
+        run: python -m pytest tests/test_perception_client.py -v
+      - name: Logging and metrics
+        run: python -m pytest tests/test_logging_metrics.py -v
+      - name: Auth upgrade
+        run: python -m pytest tests/test_auth_upgrade.py -v

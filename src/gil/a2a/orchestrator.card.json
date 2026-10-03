@@ -1,0 +1,30 @@
+{
+  "protocol": "a2a",
+  "protocolVersion": "0.2",
+  "name": "GIL Orchestrator",
+  "description": "Perceive, dream, gate, then execute through safety-gated controls.",
+  "url": "http://127.0.0.1:6771/a2a",
+    "skills": [
+    "connect_robot",
+    "get_situation",
+    "set_goal",
+    "run_mission",
+    "abort",
+    "list_embodiments",
+    "select_embodiment",
+    "ingest_world",
+    "instruct",
+    "dream",
+    "preview_plan",
+    "steer"
+  ],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "authentication": {
+    "schemes": ["token"]
+  },
+  "defaultInputModes": ["application/json"],
+  "defaultOutputModes": ["application/json"]
+}

@@ -52,7 +52,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
       "args": ["D:\\BBotOldANDExperiments\\Experiments\\GIL\\start_mcp_server.py"],
       "env": {
         "MCP_EXECUTION_DEVICE": "cuda",
-        "MCP_API_HUGGINGFACE_TOKEN": "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",
+        "MCP_API_HUGGINGFACE_TOKEN": "hf_REPLACE_ME",
         "MCP_EXECUTION_ENABLE_FP16": "true"
       }
     }

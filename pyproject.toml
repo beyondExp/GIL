@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gil"
+version = "0.1.0"
+description = "General Intelligence Layer: safety-gated robot control with a dream-then-act loop"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "GIL" }]
+dependencies = [
+  "pydantic>=2.6",
+  "pydantic-settings>=2.2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "pytest-cov>=5.0",
+]
+servers = [
+  "mcp",
+  "python-dotenv",
+  "uvicorn",
+  "websockets",
+]
+learn = [
+  "pyarrow>=15.0",
+]
+world = [
+  "huggingface_hub>=0.23",
+]
+memory = [
+  "neo4j>=5.20",
+]
+agents = [
+  "httpx>=0.27",
+]
+
+[project.scripts]
+gil-phase-gates = "gil.gates:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+gil = ["py.typed", "a2a/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "gil_controls/tests"]
+pythonpath = ["src", "gil_controls/src"]
+markers = [
+  "phase0: repo honesty and packaging",
+  "phase1: safety, health, config",
+  "phase2: orchestrator, profiles, auth",
+  "phase3: LeRobot data plane and eval harness",
+  "phase4: scene map",
+  "phase5: dream, critic, confidence gate",
+  "phase6: hardware checklist and watchdog",
+  "phase7: A2A cards and multi-robot sessions",
+  "phase8: kinematic twin and live safety integration",
+  "integration: sim-in-the-loop tests",
+]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"

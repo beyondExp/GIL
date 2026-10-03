@@ -17,17 +17,24 @@ async def main() -> None:
             imu = sensors.get("imu")
             contacts = (sensors.get("contacts") or {})
             debug = sensors.get("_debug")
+            health_res = await session.call_tool("get_humanoid_health", {})
+            health_txt = health_res.content[0].text if health_res.content else "{}"
+            health = json.loads(health_txt)
             print(
                 json.dumps(
                     {
                         "keys": sorted(list(data.keys())),
                         "robot_kind": data.get("robot_kind"),
                         "base": data.get("base"),
+                        "state_health": data.get("health"),
                         "has_image": bool(data.get("last_image") or data.get("last_image_wide")),
                         "imu_present": bool(imu),
                         "contact_keys": sorted(list(contacts.keys())),
                         "contact_in_contact": {k: bool((contacts.get(k) or {}).get("in_contact")) for k in contacts.keys()},
                         "debug": debug,
+                        "backend": health.get("backend"),
+                        "preflight_ok": (health.get("preflight") or {}).get("ok"),
+                        "safety": health.get("safety"),
                     },
                     indent=2,
                 )

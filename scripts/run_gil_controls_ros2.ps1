@@ -25,6 +25,7 @@ if (-not (Test-Path $mainPy)) {
 
 # Enable ROS2 backend (publishes to topics using rclpy).
 $env:GIL_USE_ROS2 = "1"
+$env:GIL_HUMANOID_BACKEND = "sim_ros2"
 $env:GIL_ROS2_CMD_VEL_TOPIC = $CmdVelTopic
 $env:GIL_ROS2_ODOM_TOPIC = $OdomTopic
 $env:GIL_ROS2_IMAGE_LEFT_TOPIC = $ImageLeftTopic

@@ -1,0 +1,17 @@
+{
+  "robot": "unitree_g1",
+  "version": 1,
+  "notes": "Stock G1 USD may already include head cameras. Leave prim_path empty so gil.unitree_h1_scene discovery wins. FPVCamera/ChaseCamera are only fallbacks if the USD has no cameras.",
+  "cameras": {
+    "fpv": {
+      "resolution_px": [320, 180],
+      "focal_length_mm": 18.0,
+      "horizontal_aperture_mm": 20.955
+    },
+    "chase": {
+      "prim_path": "/World/Humanoid/ChaseCamera",
+      "pos_m": [-2.2, 0.0, 1.2],
+      "resolution_px": [320, 180]
+    }
+  }
+}

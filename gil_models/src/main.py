@@ -43,6 +43,28 @@ class VisionInput(BaseModel):
     camera_info: CameraInfo = Field(description="Camera position data")
 
 @mcp.tool()
+async def get_health() -> str:
+    """Perception-service health. Vision output is never motion-authoritative."""
+    loaded = bool(engine.groot_policy or engine.gemini_client or engine.cosmos_model)
+    model = "groot" if engine.groot_policy else ("gemini" if engine.gemini_client else ("cosmos" if engine.cosmos_model else "none"))
+    try:
+        from gil.core.health import models_health
+
+        return models_health(model=model, loaded=loaded).to_json()
+    except Exception:
+        return json.dumps(
+            {
+                "ok": loaded,
+                "service": "gil_models",
+                "role": "perception",
+                "backend": model,
+                "ready_for_motion": False,
+                "safe_for_motion_authority": False,
+            }
+        )
+
+
+@mcp.tool()
 async def load_world_model(model_name: str = "groot") -> str:
     """Load the world model for vision and reasoning.
     

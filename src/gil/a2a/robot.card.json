@@ -1,0 +1,12 @@
+{
+  "protocol": "a2a",
+  "protocolVersion": "0.2",
+  "name": "GIL Robot",
+  "description": "Safety-gated body. The only agent allowed to publish motor commands.",
+  "url": "http://127.0.0.1:6769/a2a",
+  "skills": ["get_health", "preflight", "enable_motion", "stop", "drive"],
+  "capabilities": { "streaming": false },
+  "authentication": { "schemes": ["token"] },
+  "defaultInputModes": ["application/json"],
+  "defaultOutputModes": ["application/json"]
+}

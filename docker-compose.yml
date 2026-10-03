@@ -1,0 +1,4 @@
+services:
+  gil-test:
+    build: .
+    command: python -m gil.gates

@@ -17,12 +17,16 @@ async def main() -> None:
     async with streamablehttp_client(url, timeout=20, sse_read_timeout=20) as (read, write, _):
         async with ClientSession(read, write) as session:
             await session.initialize()
+            preflight = await session.call_tool("run_humanoid_preflight", {})
+            print("preflight:", preflight.content[0].text if preflight.content else "{}", flush=True)
             await session.call_tool("set_humanoid_mode", {"mode": "external"})
+            await session.call_tool("enable_humanoid_motion", {"reason": "demo start"})
 
             base0 = await _get_base(session)
             print("base_before:", json.dumps(base0, indent=2))
 
             # Forward for 5s
+            await session.call_tool("send_humanoid_heartbeat", {"source": "drive_humanoid_demo"})
             await session.call_tool(
                 "drive_humanoid",
                 {"vx": 0.6, "vy": 0.0, "wz": 0.0, "duration_s": 5.0, "reason": "demo forward"},
@@ -31,12 +35,14 @@ async def main() -> None:
             print("base_after_forward:", json.dumps(base1, indent=2))
 
             # Turn in place for 3s
+            await session.call_tool("send_humanoid_heartbeat", {"source": "drive_humanoid_demo"})
             await session.call_tool(
                 "drive_humanoid",
                 {"vx": 0.0, "vy": 0.0, "wz": 1.0, "duration_s": 3.0, "reason": "demo rotate"},
             )
             base2 = await _get_base(session)
             print("base_after_rotate:", json.dumps(base2, indent=2))
+            await session.call_tool("disable_humanoid_motion", {"reason": "demo complete"})
 
 
 if __name__ == "__main__":

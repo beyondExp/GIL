@@ -16,7 +16,7 @@
 .\setup_environment.bat
 
 # Or set manually:
-$env:MCP_API_HUGGINGFACE_TOKEN="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"
+$env:MCP_API_HUGGINGFACE_TOKEN="hf_REPLACE_ME"
 $env:MCP_EXECUTION_DEVICE="cuda"
 $env:MCP_EXECUTION_ENABLE_FP16="true"
 ```
@@ -27,7 +27,7 @@ $env:MCP_EXECUTION_ENABLE_FP16="true"
 source setup_environment.sh
 
 # Or set manually:
-export MCP_API_HUGGINGFACE_TOKEN="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"
+export MCP_API_HUGGINGFACE_TOKEN="hf_REPLACE_ME"
 export MCP_EXECUTION_DEVICE="cuda"
 export MCP_EXECUTION_ENABLE_FP16="true"
 ```
@@ -63,7 +63,7 @@ Create a file `my_test.py`:
 
 ```python
 import os
-os.environ['MCP_API_HUGGINGFACE_TOKEN'] = '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'
+os.environ['MCP_API_HUGGINGFACE_TOKEN'] = 'hf_REPLACE_ME'
 os.environ['MCP_EXECUTION_DEVICE'] = 'cuda'
 os.environ['MCP_EXECUTION_ENABLE_FP16'] = 'true'
 

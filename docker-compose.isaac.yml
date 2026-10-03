@@ -1,0 +1,53 @@
+services:
+  gil-controls:
+    build:
+      context: ./gil_controls
+      dockerfile: Dockerfile
+    environment:
+      GIL_HUMANOID_BACKEND: sim_ws
+      GIL_WS_BIND: 0.0.0.0
+      GIL_WS_PORT: "8766"
+      GIL_AUTO_HEARTBEAT: "1"
+      GIL_REQUIRE_MOTION_ENABLE: "1"
+      PYTHONPATH: /app/src:/app/gil_controls/src
+    volumes:
+      - ./:/app:rw
+    ports:
+      - "8776:8766"
+      - "6779:6769"
+    restart: unless-stopped
+
+  isaac-sim:
+    build:
+      context: docker/isaacsim
+      dockerfile: Dockerfile
+    image: gil-isaacsim-lab:5.1
+    gpus: all
+    privileged: true
+    ipc: host
+    shm_size: 8gb
+    environment:
+      ACCEPT_EULA: "Y"
+      PRIVACY_CONSENT: "Y"
+      OMNI_KIT_ACCEPT_EULA: "YES"
+      OMNI_KIT_ALLOW_ROOT: "1"
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+      LD_LIBRARY_PATH: /usr/lib/wsl/lib
+      ISAACSIM_SIGNAL_PORT: "49100"
+      GIL_ROOT: /workspace/gil
+      GIL_CONTROLS_WS: ws://host.docker.internal:8766
+      GIL_LIVESTREAM: "0"
+    volumes:
+      - ./:/workspace/gil:rw
+      - ${ISAAC_DOCKER_CACHE:-./.cache/isaac-docker}/cache:/root/.cache:rw
+      - ${ISAAC_DOCKER_CACHE:-./.cache/isaac-docker}/ov:/root/.nvidia-omniverse:rw
+      - /usr/lib/wsl:/usr/lib/wsl:ro
+    ports:
+      - "49100:49100"
+      - "47998:47998/udp"
+      - "8211:8211"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: ["${ISAAC_MODE:-play-maze}"]
+    restart: unless-stopped
